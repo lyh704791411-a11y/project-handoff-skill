@@ -1,0 +1,33 @@
+NOTICE
+
+This directory contains a modified version of the "project-handoff" skill
+from Table-skills.
+
+Upstream: https://github.com/duoduoler-ops/Table-skills
+Upstream path: project-handoff/
+Upstream license: MIT (see LICENSE)
+Upstream author: duoduoler-ops
+
+Modifications for DeepSeek Harness (DSH), 2026:
+- Rewrote the skill entry from the Codex `$project-handoff` gesture to the
+  DSH `/project-handoff` command and the `skill` tool.
+- Removed Codex-specific host instructions (hooks, apply_patch-era tooling,
+  list_projects/create_thread/send_message_to_thread/wait_threads/read_thread/
+  navigate_to_codex_page, fork_thread/handoff_thread).
+- Replaced automatic session continuation with a manual handoff package
+  (materials + opening prompt + user-created session), because DSH exposes no
+  agent-callable session creation API.
+- Removed the compaction counter and Stop-hook final-answer verification from
+  the skill text; the reminder logic relies on agent self-assessment.
+- Kept the PROJECT_STATE.md structure and BEGIN/END markers unchanged for
+  cross-host compatibility.
+- Added a DSH-specific README and install instructions.
+
+The companion host plugin `dsh-project-handoff` (a separate repository, not
+part of this skill directory) vendors `compaction_reminder.py` as
+`python/handoff_state.py`, modified only in how it resolves the SKILL path;
+its test suite is adapted from the upstream `tests/` (63 upstream cases kept,
+plus 10 DSH event-mapping cases).
+
+This modified version is not endorsed by the upstream author. The upstream
+copyright and permission notice are retained as required by the MIT license.
